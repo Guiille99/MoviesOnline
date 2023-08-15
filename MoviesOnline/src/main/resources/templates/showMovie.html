@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head th:replace="~{layouts/plantilla :: head}"></head>
+<body class="d-flex flex-column justify-content-between vh-100">
+    <!-- Navbar -->
+    <nav th:replace="~{layouts/plantilla :: nav}"></nav>
+    
+    <main class="flex-fill container-fluid">
+        <section class="movie__container container-fluid">
+            <div class="movie row text-white">
+                <figure class="col-md-3 m-0">
+                    <img id="imagen_peli" th:src="${movie.poster}" th:alt="${movie.title}" class="d-block img-fluid h-100">
+                </figure>
+                <div class="movie__details col-md-7">
+                    <div class="info__principal">
+                        <h3 id="titulo_peli" th:text="${movie.title} + ' (' + ${movie.year} + ')'"></h3> <!--Título-->
+                        <div class="info__complementaria d-flex gap-2">
+                            <span id="rated" th:text="${movie.rated}"></span> <!--Calificación-->
+                            <p id="generos" class="fw-light" th:text="${movie.genre}"></p> <!--Géneros-->
+                        </div>
+                    </div>
+                    <div class="puntuacion d-flex align-items-center gap-3">
+                        <div class="rating__container position-relative">
+                            <div class='rating'><span th:text="${movie.imdbRating}"></span></div> <!--Puntuación-->
+                        </div>
+                        <span class="fs-5">Puntuación de los usuarios</span>
+                    </div>
+
+                    <!-- Sinposis -->
+                    <div class="sinopsis">
+                        <h3>Sinopsis</h3>
+                        <p th:text="${movie.plot}"></p>
+                    </div>
+
+                    <div class="info__secundaria d-flex justify-content-between flex-wrap">
+                        <div class="d-flex flex-column gap-3">
+                            <div class="reparto__container">
+                                <h3>Reparto</h3>
+                                <!--Reparto-->
+                                <p id="reparto" th:text="${movie.actors}"></p>
+                            </div>
+
+                            <!-- Creadores -->
+                            <div class="creadores__container d-flex gap-5">
+								<div th:each="director : ${directores}" class="creador">
+									<p class="m-0 fw-bold" th:text="${director}"></p>
+									<p class="fw-light">Creador</p>
+								</div>
+							</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="grafica__container" class="d-grid justify-content-center">
+            <h1 class="text-center text-white fw-light">Calificaciones</h1>
+            <button id="btn" class="ui-button ui-widget ui-corner-all">Ver calificaciones</button>
+            <!-- GRÁFICA -->
+            <div id="grafica"></div>
+        </section>
+    </main>
+    
+    <footer class="bg-dark">
+        <p>&copy; Guillermo Jarana Barragán</p>
+    </footer>
+</body>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script th:src="@{/js/muestraPeli.js}"></script>
+<script th:inline="javascript">
+	addRatingClass($(".rating"))
+    /*<![CDATA[*/
+    let ratings = /*[[${movie.ratings}]]*/ null;
+    /*]]>*/
+    generateChart(ratings);
+</script>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="~{/layouts/plantilla :: head}"></head>
+<body class="d-flex flex-column justify-content-between vh-100">
+	<!-- Navbar -->
+    <nav th:replace="~{/layouts/plantilla :: nav}"></nav>
+    
+    <div class="container-fluid flex-fill">
+        <!-- Buscador -->
+        <div th:replace="~{/layouts/plantilla :: search}"></div>
+        
+        <div th:each="movie : ${movies}">
+        	<p>Bucle</p>
+        </div>
+        <!-- Contenedor de películas -->
+        <div class="row justify-content-center mt-4 text-white">
+            <div id="movies__container" class="movies col-md-8"></div>
+        </div>
+    
+        <!-- Películas más populares -->
+        <div class="row justify-content-center text-center mt-3 text-white">
+            <h3>Lo más popular</h3>
+            <div id="movies__populares" class="movies col-8 col-md-10 mt-3">
+            	<div th:each="film : ${pelisDestacadas}" th:id="${film.imdbID}" class='card'>
+					<figure>
+						<a th:href="@{'/movie/' + ${film.imdbID}}"><img
+							th:src="${film.poster}" alt='' class='img-fluid d-block'></a>
+						<div class='rating'>
+							<span th:text="${film.imdbRating}"></span>
+						</div>
+					</figure>
+					
+					<p><strong th:text="${film.title}"></strong></p>
+					<p><span class='fecha_estreno' th:text="${film.released}"></span></p>
+				</div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark">
+        <p>&copy;Guillermo Jarana Barragán</p>
+    </footer>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+	let peliculasDestacadas = $("#movies__populares .rating");
+	for (let i = 0; i < peliculasDestacadas.length; i++) {
+		addRatingClass(peliculasDestacadas[i]);
+	}
+	
+</script>
+</html>

@@ -1,0 +1,237 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --rating-size-sm: 3rem;
+    --bar-size: 0.2rem;
+    --rating-size-md: 4rem;
+    --background-color: #081c22;
+    --rating-color-background: #c7e1f3;
+    --rating-color-good: #27ae60;
+    --rating-color-medium: #f1c40f;
+    --rating-color-bad: #e74c3c;
+}
+body{
+    background-color: var(--background-color);
+}
+.btn{
+    background-color: #07bff7;
+    color: #fff;
+}
+.btn:hover{
+    background-color: #0b5971;
+    color: #fff;
+}
+.movies{
+    display: grid;
+    justify-content: space-around;
+    gap: 30px;
+}
+.movies figure a{
+    display: block;
+    height: 100%;
+}
+
+.movies .card{
+    max-width: 240px;
+}
+
+.card{
+    position: relative;
+    background-color: transparent;
+    transition: transform 0.8s;
+    color: #fff;
+    /* display: grid; */
+}
+.card:hover{
+    transform: scale(1.1);
+    /* border: 1px solid #fff; */
+    box-shadow: 0px 0px 15px 1px white;
+}
+.card img{
+    height: 100%;
+    width: 100%;
+    object-fit: fill;
+    border-radius: 6px;
+}
+.card figure{
+    position: relative;
+    border-radius: 8px;
+    /* height: 100%; */
+    height: 321px;
+    border-radius: 6px;
+
+}
+.card .rating {
+    position: absolute;
+    bottom: -10px;
+    right: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    overflow: hidden;
+    
+    background-color: var(--rating-color-default);
+    color: #fff;
+    width: var(--rating-size-sm);
+    height: var(--rating-size-sm);
+
+    font-size: calc(var(--rating-size-sm) / 3);
+    line-height: 1;
+}
+
+.movie .card{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    overflow: hidden;
+    
+    background-color: var(--rating-color-default);
+    color: #fff;
+    width: var(--rating-size-sm);
+    height: var(--rating-size-sm);
+
+    font-size: calc(var(--rating-size-sm) / 3);
+    line-height: 1;
+}
+
+/* Contenido del rating */
+.rating span {
+    position: relative;
+    font-size: 0.8em;
+    display: flex;
+    font-weight: bold;
+    z-index: 2;
+}
+
+/* Rating de las películas destacadas */
+/* Fondo del círculo */
+.card .rating::after {
+    content: "";
+    position: absolute;
+    top: var(--bar-size);
+    right: var(--bar-size);
+    bottom: var(--bar-size);
+    left: var(--bar-size);
+    background: var(--background-color);
+    border-radius: inherit;
+    z-index: 1;
+}
+
+.card .rating::before{
+    content: "";
+    position: absolute;
+    top: var(--bar-size);
+    right: var(--bar-size);
+    bottom: var(--bar-size);
+    left: var(--bar-size);
+    border-radius: inherit;
+    box-shadow: 0 0 0 1rem var(--rating-color-background);
+    z-index: -1;
+}
+
+/* Rating de una sola película */
+.movie .rating {
+    /* position: absolute; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    overflow: hidden;
+    
+    background-color: var(--rating-color-default);
+    color: #fff;
+    width: var(--rating-size-md);
+    height: var(--rating-size-md);
+
+    font-size: calc(var(--rating-size-md) / 3);
+    line-height: 1;
+}
+.movie .rating::after {
+    content: "";
+    position: absolute;
+    top: var(--bar-size);
+    right: var(--bar-size);
+    bottom: var(--bar-size);
+    left: var(--bar-size);
+    background: var(--background-color);
+    border-radius: inherit;
+}
+.movie .rating::before{
+    content: "";
+    position: absolute;
+    top: var(--bar-size);
+    right: var(--bar-size);
+    bottom: var(--bar-size);
+    left: var(--bar-size);
+    border-radius: inherit;
+    /* box-shadow: 0 0 0 var(--bar-size) var(--rating-color-background); */
+}
+
+/* Clases específicas dependiendo del rating de la película */
+.rating.good, .rating_large.good {
+    background-color: var(--rating-color-good);
+}
+
+.rating.medium, .rating_large.medium {
+    background-color: var(--rating-color-medium);
+}
+
+.rating.bad, .rating_large.bad {
+    background-color: var(--rating-color-bad);
+}
+
+/* PÁGINA DETALLES PELÍCULA */
+.movie__container{
+    width: 95%;
+    background-color: #00000059;
+    margin: 30px auto;
+    padding: 20px;
+    border-radius: 5px;
+    display: flex;
+    /* border: 1px solid red; */
+}
+.movie figure{
+    min-width: 257px;
+}
+.movie{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    /* border: 1px solid blue; */
+}
+.movie__details{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+}
+.movie__details .info__complementaria{
+    font-size: 0.8rem;
+}
+
+/* FOOTER */
+footer{
+    background-color: #000;
+    margin-top: 10%;
+    color: white;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media screen and (min-width: 768px){
+    #movies__populares{
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+    .movies{
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+}

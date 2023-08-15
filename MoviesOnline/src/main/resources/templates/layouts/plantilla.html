@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head th:fragment="head">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+<link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}">
+<script th:src="@{/js/jquery-3.6.3.js}"></script>
+<script th:src="@{/js/jquery-ui.min.js}"></script>
+<script th:src="@{/js/index.js}"></script>
+<title th:text="${title}">MoviesOnline</title>
+</head>
+<body>
+	<!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" data-bs-theme="dark" th:fragment="nav">
+        <div class="container-fluid justify-content-center">
+            <a class="navbar-brand fs-3" th:href="@{/}">MoviesOnline</a>
+        </div>
+    </nav>
+    
+    <div class="container-fluid">
+        <!-- Buscador -->
+        <div class="row justify-content-center mt-3" th:fragment="search">
+            <div class="col-12 col-md-10 col-lg-6">
+                <form action="" id="search_form" method="post" class="row align-items-center flex-column flex-md-row gap-2 p-2">
+                    <div class="col d-flex flex-column flex-md-row gap-2 p-0">
+                        <div class="w-100">
+                            <div class="form-floating">
+                                <input type="text" name="titulo" id="titulo" class="form-control" placeholder="Título">
+                                <label for="titulo">Título </label>
+                            </div>
+                        </div>
+                        <div class="w-100">
+                            <div class="form-floating">
+                                <select name="tipo" id="tipo" class="form-select">
+                                    <option value="">Todos</option>
+                                    <option value="movie">Película</option>
+                                    <option value="series">Serie</option>
+                                    <option value="episode">Episodio</option>
+                                    <option value="game">Juego</option>
+                                </select>
+                                <label for="tipo">Tipo </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-md-2 p-0">
+                        <input type="submit" value="Buscar" id="btnSearch" class="btn w-100">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div th:each="movie : ${movies}">
+        	<p>Bucle</p>
+        </div>
+        <!-- Contenedor de películas -->
+        <div class="row justify-content-center mt-4 text-white">
+            <div id="movies__container" class="movies col-md-8">
+                <div th:insert="~{::content}"></div>
+            </div>
+        </div>
+    
+        <!-- Películas más populares -->
+        <div class="row justify-content-center text-center mt-3 text-white">
+            <h3>Lo más popular</h3>
+            <div id="movies__populares" class="movies col-8 col-md-10 mt-3">
+            	<div th:each="film : ${pelisDestacadas}" th:id="${film.imdbID}" class='card'>
+					<figure>
+						<a th:href="@{'/movie/' + ${film.imdbID}}"><img
+							th:src="${film.poster}" alt='' class='img-fluid d-block'></a>
+						<div class='rating'>
+							<span th:text="${film.imdbRating}"></span>
+						</div>
+					</figure>
+					
+					<p><strong th:text="${film.title}"></strong></p>
+					<p><span class='fecha_estreno' th:text="${film.released}"></span></p>
+				</div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark" th:fragment="footer">
+        <p class="m-0">&copy;2023 Guillermo Jarana Barragán</p>
+    </footer>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+	let peliculasDestacadas = $("#movies__populares .rating");
+	for (let i = 0; i < peliculasDestacadas.length; i++) {
+		addRatingClass(peliculasDestacadas[i]);
+	}
+	
+</script>
+</html>
