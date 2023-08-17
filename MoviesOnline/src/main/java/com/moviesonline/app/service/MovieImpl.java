@@ -7,6 +7,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -16,6 +17,7 @@ import com.moviesonline.app.model.Movie;
 import com.moviesonline.app.repository.IMovie;
 
 @Service
+@Component
 public class MovieImpl implements IMovie {
 	public static String filter;
 	@Value("${API_KEY}")
@@ -78,7 +80,6 @@ public class MovieImpl implements IMovie {
 	}
 	
 	public ArrayList<Movie> getDataList(String params) {
-		this.apiURL += this.apiKey;
 		StringBuilder dataStr = new StringBuilder();
 		try {
 			URL url = new URL(apiURL + apiKey + params);
